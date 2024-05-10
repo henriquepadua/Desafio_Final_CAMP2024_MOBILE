@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 class LoginPageView extends StatefulWidget {
@@ -37,11 +38,12 @@ class _LoginPageViewState extends State<LoginPageView> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 40),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 40),
                 child: Column(
                   children: [
-                    Row(
+                    const Row(
                       children: [
                         Text(
                           "Email:",
@@ -50,12 +52,12 @@ class _LoginPageViewState extends State<LoginPageView> {
                         ),
                       ],
                     ),
-                    Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                    TextField(
+                    const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                    const TextField(
                       decoration: InputDecoration(border: OutlineInputBorder()),
                     ),
-                    Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-                    Row(
+                    const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                    const Row(
                       children: [
                         Text(
                           "Senha:",
@@ -64,9 +66,26 @@ class _LoginPageViewState extends State<LoginPageView> {
                         ),
                       ],
                     ),
-                    Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                    const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                     TextField(
-                      decoration: InputDecoration(border: OutlineInputBorder()),
+                      obscureText: !_mostrarSenha,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        suffixIcon: TextButton(
+                          child: Text(
+                            _mostrarSenha ? "Ocultar" : "Mostrar",
+                            style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _mostrarSenha = !_mostrarSenha;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -79,21 +98,23 @@ class _LoginPageViewState extends State<LoginPageView> {
                       activeColor: Colors.black,
                       checkColor: Colors.white,
                       value: true,
-                      onChanged: (bool? newValue) {},
+                      onChanged: (bool? newValue) {
+                        newValue = !newValue!;
+                      },
                     ),
                     const Text(
                       "Manter-se conectado",
                       style: TextStyle(fontSize: 12, color: Colors.black),
                     ),
-                    TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "Esqueceu sua senha?",
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ))
+                    // TextButton(
+                    //     onPressed: () {},
+                    //     child: const Text(
+                    //       "Esqueceu sua senha?",
+                    //       style: TextStyle(
+                    //           fontSize: 12,
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.black),
+                    //     ))
                   ],
                 ),
               ),
@@ -131,14 +152,12 @@ class _LoginPageViewState extends State<LoginPageView> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                          MaterialStateProperty.all<Color>(Colors.white),
                       ),
                       onPressed: () {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            bool mostrarSenhaLocal =
-                                _mostrarSenha; // Copiar o estado da senha
                             return StatefulBuilder(
                               builder: (context, setState) {
                                 return AlertDialog(
@@ -187,7 +206,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                                             suffixIcon: TextButton(
                                               child: Text(
                                                 _mostrarSenha
-                                                    ? "Esconder"
+                                                    ? "Ocultar"
                                                     : "Mostrar",
                                                 style: const TextStyle(
                                                     fontSize: 15,
@@ -229,7 +248,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                                               Navigator.of(context)
                                                   .pop(); // Fecha o diálogo
                                             },
-                                            child: Text(
+                                            child: const Text(
                                               'Criar conta',
                                               style: TextStyle(
                                                   fontSize: 20,
