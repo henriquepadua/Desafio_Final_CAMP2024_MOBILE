@@ -9,6 +9,8 @@ class LoginPageView extends StatefulWidget {
 }
 
 class _LoginPageViewState extends State<LoginPageView> {
+  bool _mostrarSenha = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,7 +40,6 @@ class _LoginPageViewState extends State<LoginPageView> {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 40),
                 child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
@@ -98,7 +99,7 @@ class _LoginPageViewState extends State<LoginPageView> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Container(
+                child: SizedBox(
                   width:
                       300, // Define a largura para preencher toda a largura disponível
                   child: ElevatedButton(
@@ -125,113 +126,135 @@ class _LoginPageViewState extends State<LoginPageView> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: SizedBox(
-                  width:
-                      300, // Define a largura para preencher toda a largura disponível
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                    ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Column(
-                              children: [
-                                const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 40)),
-                                const Row(
-                                  children: [
-                                    Text('E-mail'),
-                                  ],
-                                ),
-                                const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 5)),
-                                const TextField(
-                                  decoration: InputDecoration(
-                                      labelText: "Insira seu email",
-                                      labelStyle: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                      border: OutlineInputBorder()),
-                                ),
-                                const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 25)),
-                                const Row(
-                                  children: [
-                                    Text('Crie sua senha'),
-                                  ],
-                                ),
-                                const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 5)),
-                                TextField(
-                                  decoration: InputDecoration(
-                                      labelText: "Insira sua senha",
-                                      labelStyle: const TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                      suffixIcon: TextButton(
-                                        child: const Text(
-                                          "Mostrar",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        onPressed: () {},
-                                      ),
-                                      border: const OutlineInputBorder()),
-                                ),
-                                const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 40))
-                              ],
-                            ),
-                            actions: <Widget>[
-                              const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 10)),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 250,
-                                    child: ElevatedButton(
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.black),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                            .pop(); // Fecha o diálogo
-                                      },
-                                      child: Text(
-                                        'Criar conta',
-                                        style: TextStyle(
-                                            fontSize: 20, color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    child: const Text(
-                      "Cadastro com conta da empresa",
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                    width:
+                        300, // Define a largura para preencher toda a largura disponível
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
                       ),
-                    ),
-                  ),
-                ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            bool mostrarSenhaLocal =
+                                _mostrarSenha; // Copiar o estado da senha
+                            return StatefulBuilder(
+                              builder: (context, setState) {
+                                return AlertDialog(
+                                  title: Column(
+                                    children: [
+                                      const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 30)),
+                                      const Row(
+                                        children: [
+                                          Text('E-mail'),
+                                        ],
+                                      ),
+                                      const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 5)),
+                                      const TextField(
+                                        decoration: InputDecoration(
+                                            labelText: "Insira seu email",
+                                            labelStyle: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                            border: OutlineInputBorder()),
+                                      ),
+                                      const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 25)),
+                                      const Row(
+                                        children: [
+                                          Text('Crie sua senha'),
+                                        ],
+                                      ),
+                                      const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 5)),
+                                      TextField(
+                                        obscureText: !_mostrarSenha,
+                                        keyboardType:
+                                            TextInputType.visiblePassword,
+                                        decoration: InputDecoration(
+                                            labelText: "Insira sua senha",
+                                            labelStyle: const TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                            suffixIcon: TextButton(
+                                              child: Text(
+                                                _mostrarSenha
+                                                    ? "Esconder"
+                                                    : "Mostrar",
+                                                style: const TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _mostrarSenha =
+                                                      !_mostrarSenha;
+                                                });
+                                              },
+                                            ),
+                                            border: const OutlineInputBorder()),
+                                      ),
+                                      const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 40))
+                                    ],
+                                  ),
+                                  actions: <Widget>[
+                                    const Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 10)),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: 250,
+                                          child: ElevatedButton(
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                      Color>(Colors.black),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pop(); // Fecha o diálogo
+                                            },
+                                            child: Text(
+                                              'Criar conta',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
+                      child: const Text(
+                        "Cadastro com conta da empresa",
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    )),
               )
             ],
           ),
