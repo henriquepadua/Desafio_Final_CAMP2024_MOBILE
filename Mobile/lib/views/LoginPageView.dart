@@ -27,7 +27,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                     Text(
                       "Seja bem-vindo ao Sementes!",
                       style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                     Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                     Text(
