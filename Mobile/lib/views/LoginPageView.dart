@@ -1,3 +1,4 @@
+import 'package:Mobile/views/HomePageView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -58,7 +59,8 @@ class _LoginPageViewState extends State<LoginPageView> {
                     const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                     TextField(
                       controller: emailController,
-                      decoration: const InputDecoration(border: OutlineInputBorder()),
+                      decoration:
+                          const InputDecoration(border: OutlineInputBorder()),
                     ),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                     const Row(
@@ -124,7 +126,12 @@ class _LoginPageViewState extends State<LoginPageView> {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.black),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) => const HomePageView()),
+                      );
+                    },
                     child: const Text(
                       "Entrar",
                       style: TextStyle(
