@@ -10,6 +10,9 @@ class LoginPageView extends StatefulWidget {
 }
 
 class _LoginPageViewState extends State<LoginPageView> {
+  TextEditingController senhaController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+
   bool _mostrarSenha = false;
 
   @override
@@ -27,7 +30,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                     Text(
                       "Seja bem-vindo ao Sementes!",
                       style:
-                        TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                     Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                     Text(
@@ -53,8 +56,9 @@ class _LoginPageViewState extends State<LoginPageView> {
                       ],
                     ),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                    const TextField(
-                      decoration: InputDecoration(border: OutlineInputBorder()),
+                    TextField(
+                      controller: emailController,
+                      decoration: const InputDecoration(border: OutlineInputBorder()),
                     ),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                     const Row(
@@ -68,6 +72,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                     ),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                     TextField(
+                      controller: senhaController,
                       obscureText: !_mostrarSenha,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
@@ -106,15 +111,6 @@ class _LoginPageViewState extends State<LoginPageView> {
                       "Manter-se conectado",
                       style: TextStyle(fontSize: 12, color: Colors.black),
                     ),
-                    // TextButton(
-                    //     onPressed: () {},
-                    //     child: const Text(
-                    //       "Esqueceu sua senha?",
-                    //       style: TextStyle(
-                    //           fontSize: 12,
-                    //           fontWeight: FontWeight.bold,
-                    //           color: Colors.black),
-                    //     ))
                   ],
                 ),
               ),
@@ -152,7 +148,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
+                            MaterialStateProperty.all<Color>(Colors.white),
                       ),
                       onPressed: () {
                         showDialog(
