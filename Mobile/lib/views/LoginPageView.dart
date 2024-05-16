@@ -127,7 +127,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                           MaterialStateProperty.all<Color>(Colors.black),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pushReplacement(
+                      Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => const HomePageView()),
                       );
