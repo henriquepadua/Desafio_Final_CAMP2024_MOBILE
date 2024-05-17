@@ -10,7 +10,7 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   final PageController _pageController = PageController();
 
   static final List<Widget> _pages = <Widget>[
