@@ -70,7 +70,19 @@ flutter:
    - assets/Ellipse107.png
    - assets/Ellipse108.png
    - assets/Ellipse124.png
-
+   - assets/Ellipse59.png
+   - assets/icon_magnifyingglass.png
+   - assets/Group33730.png
+   - assets/Line7.png
+   - assets/8.9.png
+   - assets/Ellipse112.png
+   - assets/Ellipse113.png 
+   - assets/8.9.png
+   - assets/Group33674.png
+   - assets/Group33674(1).png
+   - assets/Group33674(2).png
+   - assets/Group33674(3).png
+   - assets/Group33674(4).png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
