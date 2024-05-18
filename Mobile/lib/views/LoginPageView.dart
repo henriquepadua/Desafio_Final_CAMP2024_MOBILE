@@ -1,3 +1,4 @@
+import 'package:Mobile/controllers/LoginController.dart';
 import 'package:Mobile/views/HomePageView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -126,7 +127,9 @@ class _LoginPageViewState extends State<LoginPageView> {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.black),
                     ),
-                    onPressed: () {
+                    onPressed: () async{
+                      //LoginController().buscarUsuariosCadastrados();
+                      //await LoginController().testarConexao();
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => const HomePageView()),
