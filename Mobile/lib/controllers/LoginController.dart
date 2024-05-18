@@ -1,9 +1,27 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
+import 'package:bcrypt/bcrypt.dart';
 
 class LoginController {
   final dio = Dio();
+
+  void testandoSenhaCriptografada() {
+  // Hash bcrypt fornecido
+  String hashedPassword = r'$2b$10$t6nKPBIJNE8sMTklrsZAR.lNC/IvnopT7PiMvr33V.sF57LgYCZIe';
+
+  // Senha que você deseja verificar
+  String password = '123'; // Substitua pela senha que você deseja verificar
+
+  // Verifica se a senha corresponde ao hash
+  bool isPasswordCorrect = BCrypt.checkpw(password, hashedPassword);
+
+  if (isPasswordCorrect) {
+    print('A senha está correta!');
+  } else {
+    print('A senha está incorreta.');
+  }
+}
 
   Future<void> testarConexao() async {
   try {

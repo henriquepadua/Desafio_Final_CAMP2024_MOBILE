@@ -127,9 +127,10 @@ class _LoginPageViewState extends State<LoginPageView> {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.black),
                     ),
-                    onPressed: () async{
+                    onPressed: () async {
                       //LoginController().buscarUsuariosCadastrados();
                       //await LoginController().testarConexao();
+                     LoginController().testandoSenhaCriptografada();
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => const HomePageView()),
