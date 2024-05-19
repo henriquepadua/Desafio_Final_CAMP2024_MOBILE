@@ -1,5 +1,6 @@
 import 'package:Mobile/controllers/LoginController.dart';
 import 'package:Mobile/views/HomePageView.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -12,8 +13,13 @@ class LoginPageView extends StatefulWidget {
 }
 
 class _LoginPageViewState extends State<LoginPageView> {
-  TextEditingController senhaController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController senhaLoginController = TextEditingController();
+  TextEditingController emailLoginController = TextEditingController();
+  TextEditingController senhaCadastroController = TextEditingController();
+  TextEditingController emailCadastroController = TextEditingController();
+  TextEditingController nomeCadastroController = TextEditingController();
+  TextEditingController cargoCadastroController = TextEditingController();
+  
 
   bool _mostrarSenha = false;
 
@@ -24,25 +30,24 @@ class _LoginPageViewState extends State<LoginPageView> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 80),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Seja bem-vindo ao Sementes!",
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
-                    Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                    Text(
-                      "Entre ou faça seu cadastro com a conta da empresa",
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ),
+               Container(
+                color: Color(0xFF6D0467),
+                 child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 80),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset("assets/Logo.png"),
+                      Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+                      Text(
+                        "Entre ou faça seu cadastro com a conta da empresa",
+                        style:
+                            TextStyle(fontSize: 17, fontWeight: FontWeight.bold,color: Colors.white),
+                      )
+                    ],
+                  ),
+                               ),
+               ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 40),
@@ -59,9 +64,13 @@ class _LoginPageViewState extends State<LoginPageView> {
                     ),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                     TextField(
-                      controller: emailController,
+                      controller: emailLoginController,
                       decoration:
-                          const InputDecoration(border: OutlineInputBorder()),
+                          const InputDecoration(
+                            hintText: "Insira o email aqui",
+                            hintStyle: TextStyle(color: Colors.black),
+                            border: OutlineInputBorder()
+                          ),
                     ),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                     const Row(
@@ -75,9 +84,11 @@ class _LoginPageViewState extends State<LoginPageView> {
                     ),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                     TextField(
-                      controller: senhaController,
+                      controller: senhaLoginController,
                       obscureText: !_mostrarSenha,
                       decoration: InputDecoration(
+                        hintText: "Insira sua senha",
+                            hintStyle: TextStyle(color: Colors.black),
                         border: const OutlineInputBorder(),
                         suffixIcon: TextButton(
                           child: Text(
@@ -125,12 +136,11 @@ class _LoginPageViewState extends State<LoginPageView> {
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.black),
+                          MaterialStateProperty.all<Color>(Color(0xFF6D0467)),
                     ),
                     onPressed: () async {
                       //LoginController().buscarUsuariosCadastrados();
-                      //await LoginController().testarConexao();
-                     LoginController().testandoSenhaCriptografada();
+                     await LoginController().criandoUsuariosCadastrados();
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => const HomePageView()),
@@ -159,7 +169,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                            MaterialStateProperty.all<Color>(Color(0xFF43C9E2)),
                       ),
                       onPressed: () {
                         showDialog(
@@ -168,72 +178,119 @@ class _LoginPageViewState extends State<LoginPageView> {
                             return StatefulBuilder(
                               builder: (context, setState) {
                                 return AlertDialog(
-                                  title: Column(
-                                    children: [
-                                      const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 30)),
-                                      const Row(
-                                        children: [
-                                          Text('E-mail'),
-                                        ],
-                                      ),
-                                      const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 5)),
-                                      const TextField(
-                                        decoration: InputDecoration(
-                                            labelText: "Insira seu email",
-                                            labelStyle: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                            border: OutlineInputBorder()),
-                                      ),
-                                      const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 25)),
-                                      const Row(
-                                        children: [
-                                          Text('Crie sua senha'),
-                                        ],
-                                      ),
-                                      const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 5)),
-                                      TextField(
-                                        obscureText: !_mostrarSenha,
-                                        keyboardType:
-                                            TextInputType.visiblePassword,
-                                        decoration: InputDecoration(
-                                            labelText: "Insira sua senha",
-                                            labelStyle: const TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                            suffixIcon: TextButton(
-                                              child: Text(
-                                                _mostrarSenha
-                                                    ? "Ocultar"
-                                                    : "Mostrar",
-                                                style: const TextStyle(
+                                  title: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical:20)),
+                                        const Row(
+                                          children: [
+                                            Text('Insira seu Nome Completo'),
+                                          ],
+                                        ),
+                                        const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 5)),
+                                        TextField(
+                                          controller: nomeCadastroController,
+                                          decoration: const InputDecoration(
+                                              labelText: "Nome Completo",
+                                              labelStyle: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                              border: OutlineInputBorder()),
+                                        ),
+                                        const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 5)),
+                                        const Row(
+                                          children: [
+                                            Text('Insira seu cargo'),
+                                          ],
+                                        ),
+                                        const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 5)),
+                                        TextField(
+                                          controller: cargoCadastroController,
+                                          decoration: const InputDecoration(
+                                              labelText: "Insira seu cargo",
+                                              labelStyle: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                              border: OutlineInputBorder()),
+                                        ),
+                                        const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 5)),
+                                        const Row(
+                                          children: [
+                                            Text('Insira seu email'),
+                                          ],
+                                        ),
+                                        const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 5)),
+                                        TextField(
+                                          controller: emailCadastroController,
+                                          decoration: const InputDecoration(
+                                              labelText: "Insira seu email",
+                                              labelStyle: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                              border: OutlineInputBorder()),
+                                        ),
+                                        const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10)),
+                                        const Row(
+                                          children: [
+                                            Text('Insira sua senha'),
+                                          ],
+                                        ),
+                                        const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 5)),
+                                        SingleChildScrollView(
+                                          child: TextField(
+                                            controller: senhaCadastroController,
+                                            obscureText: !_mostrarSenha,
+                                            keyboardType:
+                                                TextInputType.visiblePassword,
+                                            decoration: InputDecoration(
+                                                labelText: "Insira sua senha",
+                                                labelStyle: const TextStyle(
                                                     fontSize: 15,
                                                     color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              onPressed: () {
-                                                setState(() {
-                                                  _mostrarSenha =
-                                                      !_mostrarSenha;
-                                                });
-                                              },
-                                            ),
-                                            border: const OutlineInputBorder()),
-                                      ),
-                                      const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 40))
-                                    ],
+                                                    fontWeight: FontWeight.bold),
+                                                suffixIcon: TextButton(
+                                                  child: Text(
+                                                    _mostrarSenha
+                                                        ? "Ocultar"
+                                                        : "Mostrar",
+                                                    style: const TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      _mostrarSenha =
+                                                          !_mostrarSenha;
+                                                    });
+                                                  },
+                                                ),
+                                                border: const OutlineInputBorder()),
+                                          ),
+                                        ),
+                                        const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10)),
+                                        Image.asset("assets/Line18.png")        
+                                      ],
+                                    ),
                                   ),
                                   actions: <Widget>[
                                     const Padding(

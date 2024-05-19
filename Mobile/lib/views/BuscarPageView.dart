@@ -16,7 +16,7 @@ class BuscarPageViewState extends State<BuscarPageView> {
       body: Column(
         children: [
           const Padding(
-            padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
+            padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
             child: TextField(
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.search),
@@ -31,8 +31,8 @@ class BuscarPageViewState extends State<BuscarPageView> {
               ),
             ),
           ),
-          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-          Row(
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          const Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(padding: EdgeInsets.symmetric(horizontal: 28)),
@@ -47,8 +47,8 @@ class BuscarPageViewState extends State<BuscarPageView> {
                   )),
             ],
           ),
-          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-          Row(
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          const Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(padding: EdgeInsets.symmetric(horizontal: 28)),
@@ -63,21 +63,21 @@ class BuscarPageViewState extends State<BuscarPageView> {
                   )),
             ],
           ),
-          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
           Row(
             children: [
-              Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
               Image.asset(height: 50, width: 50, "assets/ImageAvatar.png"),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 17)),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 17)),
               Image.asset("assets/Ellipse106.png"),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 17)),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 17)),
               Image.asset("assets/Ellipse107.png"),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 17)),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 17)),
               Image.asset("assets/Ellipse108.png"),
             ],
           ),
-          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-          Row(
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          const Row(
             children: [
               Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
               Text("Lucas Santos",style: TextStyle(fontSize: 13)),

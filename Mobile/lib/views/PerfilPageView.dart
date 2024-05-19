@@ -172,6 +172,9 @@ class PerfilPageView extends StatelessWidget {
               ),
             ),
           ),
+          // Row(children: [
+          //   Text("data")
+          // ],)
         ],
       ),
     );
