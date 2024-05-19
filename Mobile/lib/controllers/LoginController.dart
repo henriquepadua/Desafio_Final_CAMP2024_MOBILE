@@ -7,7 +7,7 @@ import 'package:bcrypt/bcrypt.dart';
 class LoginController {
   final dio = Dio();
 
-  Future<bool> fazerLoginUsuario() async {
+  Future<bool> fazerLoginUsuario(String senha, String email) async {
     const String apiUrl =
         "https://projeto-sementes.onrender.com/usuarios/login";
     const String token =
@@ -19,8 +19,8 @@ class LoginController {
     };
 
     final Map<String, String> data = {
-      "email": "henrique6@example.cm",
-      "password": "123456789",
+      "email": email,
+      "password": senha,
     };
 
     try {
@@ -42,32 +42,6 @@ class LoginController {
       }
     } catch (e) {
       return false;
-    }
-  }
-
-  Future<bool> fazerLogin(String senha, String email) async {
-    try {
-      var response = await http.get(
-        Uri.parse("https://projeto-sementes.onrender.com/usuarios/login"),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        var usuario = jsonDecode(jsonEncode(response));
-        for (var verificaUsusario in usuario['senha']) {
-          // if (testandoSenhaCriptografada("123",
-          //     r"$2b$10$Fnjx6yRAOVYO2/SV59la0.luOMAxh0TC1LGj8hoZw141t0ykiGYmS"))
-          //   ;
-        } //.contains(senha);
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      print('Exception: $e');
-      return true;
     }
   }
 }

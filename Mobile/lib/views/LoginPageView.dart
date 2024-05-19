@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:Mobile/controllers/LoginController.dart';
 import 'package:Mobile/views/HomePageView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageView extends StatefulWidget {
   const LoginPageView({super.key});
@@ -21,6 +24,34 @@ class _LoginPageViewState extends State<LoginPageView> {
   TextEditingController cargoCadastroController = TextEditingController();
 
   bool _mostrarSenha = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedData();
+  }
+
+  Future<void> _loadSavedData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      emailLoginController.text = prefs.getString('emailLogin') ?? '';
+      senhaLoginController.text = prefs.getString('senhaLogin') ?? '';
+      nomeCadastroController.text = prefs.getString('nomeCadastro') ?? '';
+      emailCadastroController.text = prefs.getString('emailCadastro') ?? '';
+      senhaCadastroController.text = prefs.getString('senhaCadastro') ?? '';
+      cargoCadastroController.text = prefs.getString('cargoCadastro') ?? '';
+    });
+  }
+
+  Future<void> _saveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('emailLogin', emailLoginController.text);
+    await prefs.setString('senhaLogin', senhaLoginController.text);
+    await prefs.setString('nomeCadastro', nomeCadastroController.text);
+    await prefs.setString('emailCadastro', emailCadastroController.text);
+    await prefs.setString('senhaCadastro', senhaCadastroController.text);
+    await prefs.setString('cargoCadastro', cargoCadastroController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +170,8 @@ class _LoginPageViewState extends State<LoginPageView> {
                     ),
                     onPressed: () async {
                       //LoginController().buscarUsuariosCadastrados();
-                      if (await LoginController().fazerLoginUsuario()) {
+                      await _saveData();
+                      if (await LoginController().fazerLoginUsuario(senhaLoginController.value.text,emailLoginController.value.text)) {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => const HomePageView()),
