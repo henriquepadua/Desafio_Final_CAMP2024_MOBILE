@@ -1,12 +1,13 @@
 import 'dart:ffi';
 
+import 'package:Mobile/controllers/CadastroController.dart';
 import 'package:Mobile/controllers/LoginController.dart';
+import 'package:Mobile/services/DatabaseService.dart';
 import 'package:Mobile/views/HomePageView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageView extends StatefulWidget {
   const LoginPageView({super.key});
@@ -22,6 +23,7 @@ class _LoginPageViewState extends State<LoginPageView> {
   TextEditingController emailCadastroController = TextEditingController();
   TextEditingController nomeCadastroController = TextEditingController();
   TextEditingController cargoCadastroController = TextEditingController();
+  String token = "";
 
   bool _mostrarSenha = false;
 
@@ -32,25 +34,26 @@ class _LoginPageViewState extends State<LoginPageView> {
   }
 
   Future<void> _loadSavedData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      emailLoginController.text = prefs.getString('emailLogin') ?? '';
-      senhaLoginController.text = prefs.getString('senhaLogin') ?? '';
-      nomeCadastroController.text = prefs.getString('nomeCadastro') ?? '';
-      emailCadastroController.text = prefs.getString('emailCadastro') ?? '';
-      senhaCadastroController.text = prefs.getString('senhaCadastro') ?? '';
-      cargoCadastroController.text = prefs.getString('cargoCadastro') ?? '';
-    });
+    emailLoginController.text = await DatabaseService().getData('emailLogin') ?? '';
+    senhaLoginController.text = await DatabaseService().getData('senhaLogin') ?? '';
+    nomeCadastroController.text = await DatabaseService().getData('nomeCadastro') ?? '';
+    emailCadastroController.text = await DatabaseService().getData('emailCadastro') ?? '';
+    senhaCadastroController.text = await DatabaseService().getData('senhaCadastro') ?? '';
+    cargoCadastroController.text = await DatabaseService().getData('cargoCadastro') ?? '';
+    token = await DatabaseService().getData('token') ?? '';
   }
 
   Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('emailLogin', emailLoginController.text);
-    await prefs.setString('senhaLogin', senhaLoginController.text);
-    await prefs.setString('nomeCadastro', nomeCadastroController.text);
-    await prefs.setString('emailCadastro', emailCadastroController.text);
-    await prefs.setString('senhaCadastro', senhaCadastroController.text);
-    await prefs.setString('cargoCadastro', cargoCadastroController.text);
+    await DatabaseService().insertData('emailLogin', emailLoginController.text);
+    await DatabaseService().insertData('senhaLogin', senhaLoginController.text);
+    await DatabaseService().insertData('nomeCadastro', nomeCadastroController.text);
+    await DatabaseService().insertData('emailCadastro', emailCadastroController.text);
+    await DatabaseService().insertData('senhaCadastro', senhaCadastroController.text);
+    await DatabaseService().insertData('cargoCadastro', cargoCadastroController.text);
+  }
+
+  Future<void> _saveToken() async {
+    await DatabaseService().insertData('token', token);
   }
 
   @override
@@ -171,7 +174,9 @@ class _LoginPageViewState extends State<LoginPageView> {
                     onPressed: () async {
                       //LoginController().buscarUsuariosCadastrados();
                       await _saveData();
-                      if (await LoginController().fazerLoginUsuario(senhaLoginController.value.text,emailLoginController.value.text)) {
+                      if (await LoginController().fazerLoginUsuario(
+                          senhaLoginController.value.text,
+                          emailLoginController.value.text)) {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => const HomePageView()),
@@ -348,7 +353,19 @@ class _LoginPageViewState extends State<LoginPageView> {
                                                   MaterialStateProperty.all<
                                                       Color>(Colors.black),
                                             ),
-                                            onPressed: () {
+                                            onPressed: () async {
+                                              await _saveData();
+                                              token = await CadastroController()
+                                                  .fazerCadastroUsuario(
+                                                      senhaCadastroController
+                                                          .text,
+                                                      emailCadastroController
+                                                          .text,
+                                                      nomeCadastroController
+                                                          .text,
+                                                      cargoCadastroController
+                                                          .text);
+                                              await _saveToken();
                                               Navigator.of(context)
                                                   .pop(); // Fecha o diálogo
                                             },
