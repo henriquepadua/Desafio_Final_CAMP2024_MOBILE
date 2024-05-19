@@ -128,7 +128,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                   ],
                 ),
               ),
-              Padding(
+               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: SizedBox(
                   width:
