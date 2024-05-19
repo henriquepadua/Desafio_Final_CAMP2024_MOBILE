@@ -19,7 +19,6 @@ class _LoginPageViewState extends State<LoginPageView> {
   TextEditingController emailCadastroController = TextEditingController();
   TextEditingController nomeCadastroController = TextEditingController();
   TextEditingController cargoCadastroController = TextEditingController();
-  
 
   bool _mostrarSenha = false;
 
@@ -30,9 +29,9 @@ class _LoginPageViewState extends State<LoginPageView> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-               Container(
+              Container(
                 color: Color(0xFF6D0467),
-                 child: Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 80),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,13 +40,15 @@ class _LoginPageViewState extends State<LoginPageView> {
                       Padding(padding: EdgeInsets.symmetric(vertical: 15)),
                       Text(
                         "Entre ou faça seu cadastro com a conta da empresa",
-                        style:
-                            TextStyle(fontSize: 17, fontWeight: FontWeight.bold,color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       )
                     ],
                   ),
-                               ),
-               ),
+                ),
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 40),
@@ -65,12 +66,10 @@ class _LoginPageViewState extends State<LoginPageView> {
                     const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                     TextField(
                       controller: emailLoginController,
-                      decoration:
-                          const InputDecoration(
-                            hintText: "Insira o email aqui",
-                            hintStyle: TextStyle(color: Colors.black),
-                            border: OutlineInputBorder()
-                          ),
+                      decoration: const InputDecoration(
+                          hintText: "Insira o email aqui",
+                          hintStyle: TextStyle(color: Colors.black),
+                          border: OutlineInputBorder()),
                     ),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                     const Row(
@@ -88,7 +87,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                       obscureText: !_mostrarSenha,
                       decoration: InputDecoration(
                         hintText: "Insira sua senha",
-                            hintStyle: TextStyle(color: Colors.black),
+                        hintStyle: TextStyle(color: Colors.black),
                         border: const OutlineInputBorder(),
                         suffixIcon: TextButton(
                           child: Text(
@@ -128,7 +127,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                   ],
                 ),
               ),
-               Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: SizedBox(
                   width:
@@ -140,11 +139,18 @@ class _LoginPageViewState extends State<LoginPageView> {
                     ),
                     onPressed: () async {
                       //LoginController().buscarUsuariosCadastrados();
-                     await LoginController().criandoUsuariosCadastrados();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => const HomePageView()),
-                      );
+                      if (await LoginController().fazerLoginUsuario()) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => const HomePageView()),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Usuario não cadastrado'),
+                          ),
+                        );
+                      }
                     },
                     child: const Text(
                       "Entrar",
@@ -183,7 +189,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                                       children: [
                                         const Padding(
                                             padding: EdgeInsets.symmetric(
-                                                vertical:20)),
+                                                vertical: 20)),
                                         const Row(
                                           children: [
                                             Text('Insira seu Nome Completo'),
@@ -263,7 +269,8 @@ class _LoginPageViewState extends State<LoginPageView> {
                                                 labelStyle: const TextStyle(
                                                     fontSize: 15,
                                                     color: Colors.black,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                                 suffixIcon: TextButton(
                                                   child: Text(
                                                     _mostrarSenha
@@ -282,13 +289,14 @@ class _LoginPageViewState extends State<LoginPageView> {
                                                     });
                                                   },
                                                 ),
-                                                border: const OutlineInputBorder()),
+                                                border:
+                                                    const OutlineInputBorder()),
                                           ),
                                         ),
                                         const Padding(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 10)),
-                                        Image.asset("assets/Line18.png")        
+                                        Image.asset("assets/Line18.png")
                                       ],
                                     ),
                                   ),
