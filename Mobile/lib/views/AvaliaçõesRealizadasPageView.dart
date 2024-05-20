@@ -1,3 +1,4 @@
+import 'package:Mobile/views/RealizarAvaliacoesPageView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -6,24 +7,34 @@ class AvaliacoesRealizadasPageView extends StatefulWidget {
   State<StatefulWidget> createState() => AvaliacoesRealizadasPageViewState();
 }
 
-class AvaliacoesRealizadasPageViewState extends State<AvaliacoesRealizadasPageView> {
+class AvaliacoesRealizadasPageViewState
+    extends State<AvaliacoesRealizadasPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Buscar"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
+        ],
+        // currentIndex: _selectedIndex,
+        // selectedItemColor: Colors.amber[800],
+        // onTap: _onItemTapped,
+      ),
       appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        backgroundColor: Color.fromRGBO(109, 4, 103, 1),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.white),
+            onPressed: () {},
           ),
-          backgroundColor: Color.fromRGBO(109, 4, 103, 1) ,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.settings, color: Colors.white),
-              onPressed: () {},
-            ),
-          ],
+        ],
       ),
       body: ListView(
         children: [
@@ -112,40 +123,45 @@ class AvaliacoesRealizadasPageViewState extends State<AvaliacoesRealizadasPageVi
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ListTile(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => AvaliacoesRealizadasPageView()),
-                              );
-                            },
-                            //leading: Image.asset("assets/ImageAvatar.png"),
-                            title: Container(
-                              color: Color(0xFFF47920),
-                              child: const Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 55),
-                                  ),
-                                  Text(
-                                    'Última avaliação',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            subtitle: Row(
-                              children: [
-                                const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 69)),
-                                Text(
-                                  '21/05/2024',
-                                  style:
-                                      TextStyle(color: Colors.black.withOpacity(0.6)),
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(onPressed: (){},icon: Image.asset("assets/Group33735.png"))
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => AvaliacoesRealizadasPageView()),
+                    );
+                  },
+                  //leading: Image.asset("assets/ImageAvatar.png"),
+                  title: Container(
+                    color: Color(0xFFF47920),
+                    child: const Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 55),
+                        ),
+                        Text(
+                          'Última avaliação',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                  subtitle: Row(
+                    children: [
+                      const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 69)),
+                      Text(
+                        '21/05/2024',
+                        style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RealizarAvaliacoesPageView()));
+                    },
+                    icon: Image.asset("assets/Group33735.png"))
               ],
             ),
           ),
