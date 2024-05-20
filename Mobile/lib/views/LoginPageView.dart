@@ -2,12 +2,12 @@ import 'dart:ffi';
 
 import 'package:Mobile/controllers/CadastroController.dart';
 import 'package:Mobile/controllers/LoginController.dart';
-import 'package:Mobile/services/DatabaseService.dart';
 import 'package:Mobile/views/HomePageView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageView extends StatefulWidget {
   const LoginPageView({super.key});
@@ -34,26 +34,29 @@ class _LoginPageViewState extends State<LoginPageView> {
   }
 
   Future<void> _loadSavedData() async {
-    emailLoginController.text = await DatabaseService().getData('emailLogin') ?? '';
-    senhaLoginController.text = await DatabaseService().getData('senhaLogin') ?? '';
-    nomeCadastroController.text = await DatabaseService().getData('nomeCadastro') ?? '';
-    emailCadastroController.text = await DatabaseService().getData('emailCadastro') ?? '';
-    senhaCadastroController.text = await DatabaseService().getData('senhaCadastro') ?? '';
-    cargoCadastroController.text = await DatabaseService().getData('cargoCadastro') ?? '';
-    token = await DatabaseService().getData('token') ?? '';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    emailLoginController.text = prefs.getString('emailLogin') ?? '';
+    senhaLoginController.text = prefs.getString('senhaLogin') ?? '';
+    nomeCadastroController.text = prefs.getString('nomeCadastro') ?? '';
+    emailCadastroController.text = prefs.getString('emailCadastro') ?? '';
+    senhaCadastroController.text = prefs.getString('senhaCadastro') ?? '';
+    cargoCadastroController.text = prefs.getString('cargoCadastro') ?? '';
+    token = prefs.getString('token') ?? '';
   }
 
   Future<void> _saveData() async {
-    await DatabaseService().insertData('emailLogin', emailLoginController.text);
-    await DatabaseService().insertData('senhaLogin', senhaLoginController.text);
-    await DatabaseService().insertData('nomeCadastro', nomeCadastroController.text);
-    await DatabaseService().insertData('emailCadastro', emailCadastroController.text);
-    await DatabaseService().insertData('senhaCadastro', senhaCadastroController.text);
-    await DatabaseService().insertData('cargoCadastro', cargoCadastroController.text);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('emailLogin', emailLoginController.text);
+    await prefs.setString('senhaLogin', senhaLoginController.text);
+    await prefs.setString('nomeCadastro', nomeCadastroController.text);
+    await prefs.setString('emailCadastro', emailCadastroController.text);
+    await prefs.setString('senhaCadastro', senhaCadastroController.text);
+    await prefs.setString('cargoCadastro', cargoCadastroController.text);
   }
 
   Future<void> _saveToken() async {
-    await DatabaseService().insertData('token', token);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
   }
 
   @override
@@ -64,15 +67,15 @@ class _LoginPageViewState extends State<LoginPageView> {
           child: Column(
             children: [
               Container(
-                color: Color(0xFF6D0467),
+                color: const Color(0xFF6D0467),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 80),
+                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 80),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Image.asset("assets/Logo.png"),
-                      Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-                      Text(
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+                      const Text(
                         "Entre ou faça seu cadastro com a conta da empresa",
                         style: TextStyle(
                             fontSize: 17,
@@ -121,7 +124,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                       obscureText: !_mostrarSenha,
                       decoration: InputDecoration(
                         hintText: "Insira sua senha",
-                        hintStyle: TextStyle(color: Colors.black),
+                        hintStyle: const TextStyle(color: Colors.black),
                         border: const OutlineInputBorder(),
                         suffixIcon: TextButton(
                           child: Text(
@@ -151,7 +154,9 @@ class _LoginPageViewState extends State<LoginPageView> {
                       checkColor: Colors.white,
                       value: true,
                       onChanged: (bool? newValue) {
-                        newValue = !newValue!;
+                        setState(() {
+                          // Altere este valor conforme necessário
+                        });
                       },
                     ),
                     const Text(
@@ -164,15 +169,13 @@ class _LoginPageViewState extends State<LoginPageView> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: SizedBox(
-                  width:
-                      300, // Define a largura para preencher toda a largura disponível
+                  width: 300,
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0xFF6D0467)),
+                          MaterialStateProperty.all<Color>(const Color(0xFF6D0467)),
                     ),
                     onPressed: () async {
-                      //LoginController().buscarUsuariosCadastrados();
                       await _saveData();
                       if (await LoginController().fazerLoginUsuario(
                           senhaLoginController.value.text,
@@ -207,12 +210,11 @@ class _LoginPageViewState extends State<LoginPageView> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: SizedBox(
-                    width:
-                        300, // Define a largura para preencher toda a largura disponível
+                    width: 300,
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xFF43C9E2)),
+                            MaterialStateProperty.all<Color>(const Color(0xFF43C9E2)),
                       ),
                       onPressed: () {
                         showDialog(
@@ -221,8 +223,10 @@ class _LoginPageViewState extends State<LoginPageView> {
                             return StatefulBuilder(
                               builder: (context, setState) {
                                 return AlertDialog(
-                                  title: SingleChildScrollView(
+                                  contentPadding: const EdgeInsets.all(8.0),
+                                  content: SingleChildScrollView(
                                     child: Column(
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
                                         const Padding(
                                             padding: EdgeInsets.symmetric(
@@ -295,40 +299,37 @@ class _LoginPageViewState extends State<LoginPageView> {
                                         const Padding(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 5)),
-                                        SingleChildScrollView(
-                                          child: TextField(
-                                            controller: senhaCadastroController,
-                                            obscureText: !_mostrarSenha,
-                                            keyboardType:
-                                                TextInputType.visiblePassword,
-                                            decoration: InputDecoration(
-                                                labelText: "Insira sua senha",
-                                                labelStyle: const TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                                suffixIcon: TextButton(
-                                                  child: Text(
-                                                    _mostrarSenha
-                                                        ? "Ocultar"
-                                                        : "Mostrar",
-                                                    style: const TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      _mostrarSenha =
-                                                          !_mostrarSenha;
-                                                    });
-                                                  },
+                                        TextField(
+                                          controller: senhaCadastroController,
+                                          obscureText: !_mostrarSenha,
+                                          keyboardType:
+                                              TextInputType.visiblePassword,
+                                          decoration: InputDecoration(
+                                              labelText: "Insira sua senha",
+                                              labelStyle: const TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                              suffixIcon: TextButton(
+                                                child: Text(
+                                                  _mostrarSenha
+                                                      ? "Ocultar"
+                                                      : "Mostrar",
+                                                  style: const TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
-                                                border:
-                                                    const OutlineInputBorder()),
-                                          ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _mostrarSenha =
+                                                        !_mostrarSenha;
+                                                  });
+                                                },
+                                              ),
+                                              border:
+                                                  const OutlineInputBorder()),
                                         ),
                                         const Padding(
                                             padding: EdgeInsets.symmetric(
@@ -355,7 +356,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                                             ),
                                             onPressed: () async {
                                               await _saveData();
-                                              token = await CadastroController()
+                                              await CadastroController()
                                                   .fazerCadastroUsuario(
                                                       senhaCadastroController
                                                           .text,
@@ -365,7 +366,6 @@ class _LoginPageViewState extends State<LoginPageView> {
                                                           .text,
                                                       cargoCadastroController
                                                           .text);
-                                              await _saveToken();
                                               Navigator.of(context)
                                                   .pop(); // Fecha o diálogo
                                             },

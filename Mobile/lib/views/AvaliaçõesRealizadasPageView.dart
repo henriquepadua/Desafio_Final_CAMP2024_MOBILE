@@ -17,9 +17,6 @@ class AvaliacoesRealizadasPageViewState
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Buscar"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
         ],
-        // currentIndex: _selectedIndex,
-        // selectedItemColor: Colors.amber[800],
-        // onTap: _onItemTapped,
       ),
       appBar: AppBar(
         leading: IconButton(

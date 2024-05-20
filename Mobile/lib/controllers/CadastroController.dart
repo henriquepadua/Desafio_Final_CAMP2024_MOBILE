@@ -7,7 +7,7 @@ import 'package:bcrypt/bcrypt.dart';
 class CadastroController {
   final dio = Dio();
 
-  Future<String> fazerCadastroUsuario(
+  Future<void> fazerCadastroUsuario(
       String senha, String email, String nome, String cargo) async {
     const String apiUrl =
         "https://projeto-sementes.onrender.com/usuarios/register";
@@ -30,15 +30,7 @@ class CadastroController {
         body: jsonEncode(data),
         encoding: Encoding.getByName("utf-8"),
       );
-
-      if (response.statusCode == 201) {
-        print(response.body);
-        return "true";
-      } else {
-        return "false";
-      }
     } catch (e) {
-      return "false";
     }
   }
 }

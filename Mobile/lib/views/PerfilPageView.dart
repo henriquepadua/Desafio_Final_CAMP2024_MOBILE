@@ -1,3 +1,4 @@
+import 'package:Mobile/services/DatabaseService.dart';
 import 'package:Mobile/views/Avalia%C3%A7%C3%B5esRealizadasPageView.dart';
 import 'package:Mobile/views/AvaliacoesPessoaisPageView.dart';
 import 'package:Mobile/views/HomePageView.dart';
@@ -9,6 +10,13 @@ class PerfilPageView extends StatefulWidget {
 }
 
 class _PerfilPageViewState extends State<PerfilPageView> {
+  String nome = "";
+
+  void pegarNome() async {
+    nome = (await DatabaseService().getData('nomeCadastro'))!;
+    print(nome);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -24,8 +32,8 @@ class _PerfilPageViewState extends State<PerfilPageView> {
               child: Icon(Icons.person_2, size: 50),
             ),
           ),
-          const Text(
-            "Karina Camp",
+          Text(
+            nome,
             style: TextStyle(fontSize: 30, color: Color(0xFF6D0467)),
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
@@ -137,7 +145,7 @@ class _PerfilPageViewState extends State<PerfilPageView> {
               ),
             ],
           ),
-          Padding(padding: EdgeInsets.symmetric(vertical:10)),
+          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
           Container(
             color: Color(0xFFF47920),
             width: 350,
@@ -151,7 +159,8 @@ class _PerfilPageViewState extends State<PerfilPageView> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (context) => AvaliacoesRealizadasPageView()),
+                              builder: (context) =>
+                                  AvaliacoesRealizadasPageView()),
                         );
                       },
                       leading: Image.asset("assets/ImageAvatar.png"),
