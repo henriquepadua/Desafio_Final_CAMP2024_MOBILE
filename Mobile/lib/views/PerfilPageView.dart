@@ -3,7 +3,12 @@ import 'package:Mobile/views/AvaliacoesPessoaisPageView.dart';
 import 'package:Mobile/views/HomePageView.dart';
 import 'package:flutter/material.dart';
 
-class PerfilPageView extends StatelessWidget {
+class PerfilPageView extends StatefulWidget {
+  @override
+  _PerfilPageViewState createState() => _PerfilPageViewState();
+}
+
+class _PerfilPageViewState extends State<PerfilPageView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

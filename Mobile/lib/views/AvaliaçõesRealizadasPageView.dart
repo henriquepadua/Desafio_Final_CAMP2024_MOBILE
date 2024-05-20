@@ -48,8 +48,8 @@ class AvaliacoesRealizadasPageViewState
               child: Icon(Icons.person_2, size: 50),
             ),
           ),
-          Center(
-            child: const Text(
+          const Center(
+            child: Text(
               "Karina Camp",
               style: TextStyle(fontSize: 30, color: Color(0xFFF47920)),
             ),
