@@ -36,7 +36,7 @@ class _HomePageViewState extends State<HomePageView> {
               Navigator.of(context).pop();
             },
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromRGBO(109, 4, 103, 1) ,
           actions: [
             IconButton(
               icon: const Icon(Icons.settings, color: Colors.white),

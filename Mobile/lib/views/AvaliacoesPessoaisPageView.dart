@@ -1,3 +1,5 @@
+import 'package:Mobile/views/BuscarPageView.dart';
+import 'package:Mobile/views/PerfilPageView.dart';
 import 'package:flutter/material.dart';
 
 class AvaliacoesPessoaisView extends StatefulWidget {
@@ -6,10 +8,34 @@ class AvaliacoesPessoaisView extends StatefulWidget {
 }
 
 class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
+  int _selectedIndex = 1; // Começar no índice 0, que é a página de busca
+  final PageController _pageController = PageController(initialPage: 1);
+
+  static final List<Widget> _pages = <Widget>[
+    BuscarPageView(), // Página de busca primeiro
+    PerfilPageView(), // Página de perfil depois
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    _pageController.jumpToPage(index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        // bottomNavigationBar: BottomNavigationBar(
+        //   items: const [
+        //     BottomNavigationBarItem(icon: Icon(Icons.search), label: "Buscar"),
+        //     BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
+        //   ],
+        //   currentIndex: _selectedIndex,
+        //   selectedItemColor: Colors.amber[800],
+        //   onTap: _onItemTapped,
+        // ),
         backgroundColor: const Color.fromRGBO(109, 4, 103, 1),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +142,11 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                               padding: EdgeInsets.symmetric(horizontal: 15)),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        PerfilPageView()));
+                              },
                               child: const Text(
                                 "Avaliações \n feitas por você",
                                 textAlign: TextAlign.center,
@@ -245,7 +275,6 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                 ),
               ),
             ),
-            
             Column(
               children: [
                 SingleChildScrollView(
@@ -253,53 +282,47 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                   child: Column(
                     children: [
                       const Text(
-                                "Inteligência Emocional",
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.white),
-                              ),
+                        "Inteligência Emocional",
+                        style: TextStyle(fontSize: 10, color: Colors.white),
+                      ),
                       Row(
                         children: [
                           Image.asset("assets/Frame237.png"),
                         ],
                       ),
                       const Text(
-                                "Flexibilidade",
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.white),
-                              ),
+                        "Flexibilidade",
+                        style: TextStyle(fontSize: 10, color: Colors.white),
+                      ),
                       Row(
                         children: [
                           Image.asset("assets/Frame237.png"),
                         ],
                       ),
                       const Text(
-                                "Proatividade",
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.white),
-                              ),
+                        "Proatividade",
+                        style: TextStyle(fontSize: 10, color: Colors.white),
+                      ),
                       Row(
                         children: [
                           Image.asset("assets/Frame237.png"),
                         ],
                       ),
                       const Text(
-                                "Comunicação",
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.white),
-                              ),
+                        "Comunicação",
+                        style: TextStyle(fontSize: 10, color: Colors.white),
+                      ),
                       Row(
                         children: [
                           Image.asset("assets/Frame237.png"),
                         ],
                       ),
                       const Text(
-                                "Criatividade",
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.white),
-                              ),
+                        "Criatividade",
+                        style: TextStyle(fontSize: 10, color: Colors.white),
+                      ),
                       Row(
                         children: [
-                          
                           Image.asset("assets/Frame237.png"),
                         ],
                       ),

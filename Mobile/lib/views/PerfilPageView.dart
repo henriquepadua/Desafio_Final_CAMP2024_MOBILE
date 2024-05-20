@@ -1,3 +1,4 @@
+import 'package:Mobile/views/Avalia%C3%A7%C3%B5esRealizadasPageView.dart';
 import 'package:Mobile/views/AvaliacoesPessoaisPageView.dart';
 import 'package:Mobile/views/HomePageView.dart';
 import 'package:flutter/material.dart';
@@ -18,140 +19,180 @@ class PerfilPageView extends StatelessWidget {
               child: Icon(Icons.person_2, size: 50),
             ),
           ),
-          const Center(
-            child: Text(
-              "Karina Camp",
-              style: TextStyle(fontSize: 30),
-            ),
+          const Text(
+            "Karina Camp",
+            style: TextStyle(fontSize: 30, color: Color(0xFF6D0467)),
           ),
-          const Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Area de Design * ",
-                style: TextStyle(fontSize: 20),
+              const Text(
+                "Area de Design",
+                style: TextStyle(fontSize: 15, color: Colors.black),
               ),
-              Text(
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+              Image.asset("assets/Ellipse59.png"),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+              const Text(
                 "Estagiária",
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 12, color: Colors.black),
               ),
             ],
           ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-              Image.asset("assets/Caledarioplanta.png"),
+              Image.asset("assets/icon_magnifyingglass.png"),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+              const Column(
+                children: [
+                  Text(
+                    "É semente Há",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 8,
+                        color: Color(0xFF6D0467)),
+                  ),
+                  Text(
+                    "1 ANO",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Color(0xFF6D0467)),
+                  ),
+                ],
+              ),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 25)),
+              Image.asset("assets/Group33730.png"),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+              const Column(
+                children: [
+                  Text(
+                    "Avaliações",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 8,
+                        color: Color(0xFF6D0467)),
+                  ),
+                  Text(
+                    "0",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Color(0xFF6D0467)),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 5),
+          ),
+          Image.asset("assets/Line7.png"),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 15),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               const Padding(padding: EdgeInsets.symmetric(horizontal: 15)),
-              const Text(
-                "É SEMENTE HÁ \n 1 ANO",
-                style: TextStyle(fontSize: 15),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Color.fromRGBO(109, 4, 103, 1)),
+                  ),
+                  child: const Text(
+                    "Avaliações \n feitas por você",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ),
               ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-              Image.asset("assets/Icon.png"),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-              const Text(
-                textAlign: TextAlign.center,
-                "Avaliações \n 87",
-                style: TextStyle(fontSize: 15),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 15)),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => AvaliacoesPessoaisView()));
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                  ),
+                  child: const Text(
+                    "Carreiras",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                ),
               ),
             ],
           ),
-          Row(
-            children: [
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 40)),
-              Row(
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      "Avaliações feitas por você",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      "Carreiras",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(
+          Padding(padding: EdgeInsets.symmetric(vertical:10)),
+          Container(
+            color: Color(0xFFF47920),
             width: 350,
             height: 120,
-            child: Builder(
-              builder: (context) {
-                return Card(
-                  clipBehavior: Clip.antiAlias,
-                  child: Column(
-                    children: [
-                      ListTile(
-                        onTap: (){
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                            builder: (context) => AvaliacoesPessoaisView()),
-                          );
-                        },
-                        leading: Image.asset("assets/ImageAvatar.png"),
-                        title: const Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                            ),
-                            Text(
-                              'Lucas Santos',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        subtitle: Row(
-                          children: [
-                            const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20)),
-                            Text(
-                              'Peoduct Design',
-                              style:
-                                  TextStyle(color: Colors.black.withOpacity(0.6)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
+            child: Builder(builder: (context) {
+              return Card(
+                clipBehavior: Clip.antiAlias,
+                child: Column(
+                  children: [
+                    ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => AvaliacoesRealizadasPageView()),
+                        );
+                      },
+                      leading: Image.asset("assets/ImageAvatar.png"),
+                      title: const Row(
                         children: [
-                          const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 63),),
-                          const Icon(Icons.timer_sharp),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                            child: Text(
-                              'Feita há 3 meses',
-                              style:
-                                  TextStyle(color: Colors.black.withOpacity(0.6)),
-                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                          ),
+                          Text(
+                            'Lucas Santos',
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                );
-              }
-            ),
+                      subtitle: Row(
+                        children: [
+                          const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20)),
+                          Text(
+                            'Peoduct Design',
+                            style:
+                                TextStyle(color: Colors.black.withOpacity(0.6)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 63),
+                        ),
+                        const Icon(Icons.timer_sharp),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Text(
+                            'Feita há 3 meses',
+                            style:
+                                TextStyle(color: Colors.black.withOpacity(0.6)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }),
           ),
           // Adicione os outros cards da mesma maneira
           ElevatedButton(
