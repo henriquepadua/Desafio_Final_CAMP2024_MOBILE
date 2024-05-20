@@ -2,6 +2,7 @@ import 'package:Mobile/views/BuscarPageView.dart';
 import 'package:Mobile/views/HomePageView.dart';
 import 'package:Mobile/views/PerfilPageView.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AvaliacoesPessoaisView extends StatefulWidget {
   @override
@@ -9,6 +10,27 @@ class AvaliacoesPessoaisView extends StatefulWidget {
 }
 
 class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
+    String _nomeUsuario = '';
+  String _cargoUsuario = '';
+  String _idUsuario = ''; // Adicione uma variável de estado para armazenar o nome
+
+  @override
+  void initState() {
+    super.initState();
+    pegarNome();
+  }
+
+  void pegarNome() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String nomeUsuario = prefs.getString('nome') ?? '';
+    String cargoUsuario = prefs.getString('cargo') ?? '';
+    String idUsuario = prefs.getString('id') ?? '';
+    setState(() {
+      _nomeUsuario = nomeUsuario;
+      _cargoUsuario = cargoUsuario;
+      _idUsuario = idUsuario; // Atualize o estado com o nome obtido
+    });
+  }
   int _selectedIndex = 1; // Começar no índice 0, que é a página de busca
   final PageController _pageController = PageController(initialPage: 1);
 
@@ -58,8 +80,8 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                           child: Icon(Icons.person_2, size: 50),
                         ),
                       ),
-                      const Text(
-                        "Karina Camp",
+                      Text(
+                        _nomeUsuario,
                         style:
                             TextStyle(fontSize: 30, color: Color(0xFF6D0467)),
                       ),
@@ -67,17 +89,8 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            "Area de Design",
-                            style: TextStyle(fontSize: 15, color: Colors.black),
-                          ),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5)),
-                          Image.asset("assets/Ellipse59.png"),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5)),
-                          const Text(
-                            "Estagiária",
+                          Text(
+                            _cargoUsuario,
                             style: TextStyle(fontSize: 12, color: Colors.black),
                           ),
                         ],
@@ -122,7 +135,7 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                                     color: Color(0xFF6D0467)),
                               ),
                               Text(
-                                "87",
+                                "0",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -290,7 +303,7 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/Frame237.png"),
+                          Image.asset("assets/Frame237.png",height: 50,width: 500),
                         ],
                       ),
                       const Text(
@@ -299,7 +312,7 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/Frame237.png"),
+                          Image.asset("assets/Frame237.png",height: 50,width: 500),
                         ],
                       ),
                       const Text(
@@ -308,7 +321,7 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/Frame237.png"),
+                          Image.asset("assets/Frame237.png",height: 50,width: 500),
                         ],
                       ),
                       const Text(
@@ -317,7 +330,7 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/Frame237.png"),
+                          Image.asset("assets/Frame237.png",height: 50,width: 500),
                         ],
                       ),
                       const Text(
@@ -326,7 +339,7 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/Frame237.png"),
+                          Image.asset("assets/Frame237.png",height: 50,width: 500),
                         ],
                       ),
                     ],
