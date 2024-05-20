@@ -244,7 +244,7 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                           ),
                         ],
                       ),
-                      Row(
+                      const Row(
                         children: [
                           Padding(
                               padding: EdgeInsets.symmetric(horizontal: 22)),
@@ -263,7 +263,7 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                       Image.asset("assets/Line18.png"),
                       Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(

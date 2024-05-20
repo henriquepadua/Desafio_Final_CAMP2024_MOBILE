@@ -2,7 +2,9 @@ import 'package:Mobile/services/DatabaseService.dart';
 import 'package:Mobile/views/Avalia%C3%A7%C3%B5esRealizadasPageView.dart';
 import 'package:Mobile/views/AvaliacoesPessoaisPageView.dart';
 import 'package:Mobile/views/HomePageView.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PerfilPageView extends StatefulWidget {
   @override
@@ -10,13 +12,28 @@ class PerfilPageView extends StatefulWidget {
 }
 
 class _PerfilPageViewState extends State<PerfilPageView> {
-  String nome = "";
+ TextEditingController nome = TextEditingController();
+  String _nomeUsuario = '';
+  String _cargoUsuario = '';
+  String _idUsuario = ''; // Adicione uma variável de estado para armazenar o nome
 
-  void pegarNome() async {
-    nome = (await DatabaseService().getData('nomeCadastro'))!;
-    print(nome);
+  @override
+  void initState() {
+    super.initState();
+    pegarNome();
   }
 
+  void pegarNome() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String nomeUsuario = prefs.getString('nome') ?? '';
+    String cargoUsuario = prefs.getString('cargo') ?? '';
+    String idUsuario = prefs.getString('id') ?? '';
+    setState(() {
+      _nomeUsuario = nomeUsuario;
+      _cargoUsuario = cargoUsuario;
+      _idUsuario = idUsuario; // Atualize o estado com o nome obtido
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -33,22 +50,15 @@ class _PerfilPageViewState extends State<PerfilPageView> {
             ),
           ),
           Text(
-            nome,
+            _nomeUsuario,
             style: TextStyle(fontSize: 30, color: Color(0xFF6D0467)),
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                "Area de Design",
-                style: TextStyle(fontSize: 15, color: Colors.black),
-              ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-              Image.asset("assets/Ellipse59.png"),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-              const Text(
-                "Estagiária",
+              Text(
+                _cargoUsuario,
                 style: TextStyle(fontSize: 12, color: Colors.black),
               ),
             ],
