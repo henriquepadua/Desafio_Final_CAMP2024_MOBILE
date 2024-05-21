@@ -1,5 +1,5 @@
 
-Projeto Sementes - Front End
+Projeto Sementes - Mobile
 Este projeto foi desenvolvido durante o Camp de 2024 da IOASYS.
 
 Este repositório contém todo o Mobile da aplicação e depende do Back End estar hospedado e rodando para garantir o funcionamento das APIs utilizadas.
