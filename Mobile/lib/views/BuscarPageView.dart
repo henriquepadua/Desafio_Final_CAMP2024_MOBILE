@@ -88,7 +88,7 @@ class BuscarPageViewState extends State<BuscarPageView> {
     for (var usuario in _usuarios) {
       cards.add(
         GestureDetector(
-          onTap: () => _onUserSelected(usuario['nome'], usuario['cargo']),
+          onTap: () => _onUserSelected(usuario['nome'], usuario['cargo'],usuario['id']),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 7),
             child: Column(
@@ -131,10 +131,11 @@ class BuscarPageViewState extends State<BuscarPageView> {
     }
   }
 
-  Future<void> _onUserSelected(String nome, String cargo) async {
+  Future<void> _onUserSelected(String nome, String cargo,String id) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('nomePesquisado', nome);
     await prefs.setString('cargoPesquisado', cargo);
+    await prefs.setString('idPesquisado', id);
 
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => AvaliacoesRealizadasPageView()),
