@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:dio/dio.dart';
 
 class RetornarUsuariosController {
-  final dio = Dio();
 
   Future<void> pegarTodosUsuarios() async {
     const String apiUrl =

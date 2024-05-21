@@ -40,7 +40,7 @@ class RealizarAvaliacoesPageViewState
       nome = prefs.getString('nomePesquisado') ?? 'Nome não encontrado';
       cargo = prefs.getString('cargoPesquisado') ?? 'Cargo não encontrado';
       usuarioAvaliadoId =
-          prefs.getString('usuarioAvaliadoId') ?? 'Id não encontrado';
+          prefs.getString('idPesquisado') ?? 'Id não encontrado';
     });
   }
 
@@ -170,8 +170,8 @@ class RealizarAvaliacoesPageViewState
             backgroundColor:
                 MaterialStateProperty.all<Color>(Color(0xFF43C9E2)),
           ),
-          onPressed: () {
-            _sendAvaliacao;
+          onPressed: () async{
+             _sendAvaliacao();
               Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => const HomePageView()),
