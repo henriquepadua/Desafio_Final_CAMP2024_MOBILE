@@ -148,6 +148,7 @@ class RealizarAvaliacoesPageViewState
               labelText: 'Digite sua Observação',
               fillColor: Colors.white,
               filled: true,
+              border: OutlineInputBorder()
             ),
           ),
         ),
