@@ -197,22 +197,6 @@ class _PerfilPageViewState extends State<PerfilPageView> {
                         ],
                       ),
                     ),
-                    Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 63),
-                        ),
-                        const Icon(Icons.timer_sharp),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Text(
-                            'Feita há 3 meses',
-                            style:
-                                TextStyle(color: Colors.black.withOpacity(0.6)),
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               );
