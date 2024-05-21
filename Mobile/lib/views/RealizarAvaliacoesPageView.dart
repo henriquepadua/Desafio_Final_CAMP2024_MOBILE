@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RealizarAvaliacoesPageView extends StatefulWidget {
@@ -10,8 +8,20 @@ class RealizarAvaliacoesPageView extends StatefulWidget {
 
 class RealizarAvaliacoesPageViewState
     extends State<RealizarAvaliacoesPageView> {
-      String nome = '';
+  String nome = '';
   String cargo = '';
+
+  // Lista de perguntas com suas opções
+  final List<String> _perguntas = [
+    "Como você avalia a sua experiência com o nosso produto?",
+    "Quão satisfeito você está com o atendimento ao cliente?",
+    "Você recomendaria nosso produto para outras pessoas?",
+    "O que você mais gosta no nosso produto?",
+    "Como podemos melhorar nosso produto?"
+  ];
+
+  // Índice da pergunta selecionada
+  int? _selectedQuestionIndex;
 
   @override
   void initState() {
@@ -26,102 +36,112 @@ class RealizarAvaliacoesPageViewState
       cargo = prefs.getString('cargoPesquisado') ?? 'Cargo não encontrado';
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Buscar"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
-          ],
-          // currentIndex: _selectedIndex,
-          // selectedItemColor: Colors.amber[800],
-          // onTap: _onItemTapped,
-        ),
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        backgroundColor: Color.fromRGBO(109, 4, 103, 1),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings, color: Colors.white),
-            onPressed: () {},
+        title: Text('Realizar Avaliações'),
+      ),
+      body: ListView(
+        children: [
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          const Center(
+            child: CircleAvatar(
+              maxRadius: 50,
+              minRadius: 10,
+              child: Icon(Icons.person_2, size: 50),
+            ),
           ),
+          Center(
+            child: Text(
+              nome,
+              style: TextStyle(fontSize: 30, color: Color(0xFFF47920)),
+            ),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                cargo,
+                style: TextStyle(fontSize: 15, color: Colors.black),
+              ),
+            ],
+          ),
+          Container(
+            width: 40,
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            color: Color(0xFF6D0467),
+            child: Card(
+              child: ListTile(
+                title: Text("Nova avaliação",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, color: Color(0xFF6D0467))),
+              ),
+            ),
+          ),
+          Container(
+            color: Color(0xFF6D0467),
+            child: Column(
+              children: _buildPerguntas(),
+            ),
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF43C9E2)),
+            ),
+            onPressed: () async {
+              // Lógica para enviar a avaliação
+              print("Pergunta selecionada: ${_selectedQuestionIndex != null ? _perguntas[_selectedQuestionIndex!] : 'Nenhuma'}");
+            },
+            child: const Text(
+              "Enviar Avaliação",
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
         ],
       ),
-      body: ListView(children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-        ),
-        const Center(
-          child: CircleAvatar(
-            maxRadius: 50,
-            minRadius: 10,
-            child: Icon(Icons.person_2, size: 50),
-          ),
-        ),
-        Center(
-          child: Text(
-            nome,
-            style: TextStyle(fontSize: 30, color: Color(0xFFF47920)),
-          ),
-        ),
-        const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              cargo,
-              style: TextStyle(fontSize: 15, color: Colors.black),
-            ),
-          ],
-        ),
-        Container(
-          width: 40,
-          padding: EdgeInsets.symmetric(horizontal: 40),
-          color: Color(0xFF6D0467),
-          child: Card(
-            child: ListTile(
-              title: Text("Nova avaliação",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Color(0xFF6D0467))),
-            ),
-          ),
-        ),
-        Container(
-          color: Color(0xFF6D0467),
-          child: Column(children: [
-            Image.asset("assets/Pergunta1.png"),
-            Image.asset("assets/Pergunta2.png"),
-            Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-            Image.asset("assets/Avaliacaoscrita.png"),
-            Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-            ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0xFF43C9E2)),
-                    ),
-                    onPressed: () async {
-                      
-                    },
-                    child: const Text(
-                      "Enviar Avaliação",
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                              Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-
-          ]),
-        )
-      ]),
     );
+  }
+
+  List<Widget> _buildPerguntas() {
+    List<Widget> widgets = [];
+    for (int i = 0; i < _perguntas.length; i++) {
+      widgets.add(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _perguntas[i],
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+              Row(
+                children: List.generate(5, (index) {
+                  final value = index + 1;
+                  return Checkbox(
+                    value: _selectedQuestionIndex == i && _selectedQuestionIndex == index,
+                    onChanged: (bool? isChecked) {
+                      setState(() {
+                        _selectedQuestionIndex = isChecked! ? i : null;
+                      });
+                    },
+                  );
+                }),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return widgets;
   }
 }
