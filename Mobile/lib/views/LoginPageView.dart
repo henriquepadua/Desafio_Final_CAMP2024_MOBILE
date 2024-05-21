@@ -30,7 +30,6 @@ class _LoginPageViewState extends State<LoginPageView> {
   @override
   void initState() {
     super.initState();
-    // _loadSavedData();
   }
 
   Future<void> _loadSavedData() async {

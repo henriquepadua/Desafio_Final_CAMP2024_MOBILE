@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RealizarAvaliacoesPageView extends StatefulWidget {
   @override
@@ -9,6 +10,22 @@ class RealizarAvaliacoesPageView extends StatefulWidget {
 
 class RealizarAvaliacoesPageViewState
     extends State<RealizarAvaliacoesPageView> {
+      String nome = '';
+  String cargo = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      nome = prefs.getString('nomePesquisado') ?? 'Nome não encontrado';
+      cargo = prefs.getString('cargoPesquisado') ?? 'Cargo não encontrado';
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +65,8 @@ class RealizarAvaliacoesPageViewState
           ),
         ),
         Center(
-          child: const Text(
-            "Karina Camp",
+          child: Text(
+            nome,
             style: TextStyle(fontSize: 30, color: Color(0xFFF47920)),
           ),
         ),
@@ -57,8 +74,8 @@ class RealizarAvaliacoesPageViewState
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "Area de Design",
+            Text(
+              cargo,
               style: TextStyle(fontSize: 15, color: Colors.black),
             ),
           ],

@@ -1,7 +1,11 @@
 import 'dart:convert';
 
+import 'package:Mobile/views/Avalia%C3%A7%C3%B5esRealizadasPageView.dart';
+import 'package:Mobile/views/AvaliacoesPessoaisPageView.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'RealizarAvaliacoesPageView.dart';
 
 class BuscarPageView extends StatefulWidget {
   @override
@@ -37,7 +41,7 @@ class BuscarPageViewState extends State<BuscarPageView> {
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.search),
                   prefixIconColor: Colors.black,
-                  hintText: "Buscar pokemon",
+                  hintText: "Buscar integrante",
                   labelText: "Buscar integrante ou projeto",
                   labelStyle: TextStyle(
                     fontSize: 13,
@@ -65,10 +69,12 @@ class BuscarPageViewState extends State<BuscarPageView> {
                 ],
               ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: _buildUsuariosCards(),
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: _buildUsuariosCards(),
+                ),
               ),
             ),
           ],
@@ -81,20 +87,23 @@ class BuscarPageViewState extends State<BuscarPageView> {
     List<Widget> cards = [];
     for (var usuario in _usuarios) {
       cards.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 7),
-          child: Column(
-            children: [
-              CircleAvatar(
-                radius: 25,
-                child: Icon(Icons.person),
-              ),
-              SizedBox(height: 5),
-              Text(
-                usuario['nome'],
-                style: TextStyle(fontSize: 13),
-              ),
-            ],
+        GestureDetector(
+          onTap: () => _onUserSelected(usuario['nome'], usuario['cargo']),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 7),
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 25,
+                  child: Icon(Icons.person),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  usuario['nome'],
+                  style: TextStyle(fontSize: 13),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -120,5 +129,15 @@ class BuscarPageViewState extends State<BuscarPageView> {
     } catch (e) {
       print('Error: $e');
     }
+  }
+
+  Future<void> _onUserSelected(String nome, String cargo) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('nomePesquisado', nome);
+    await prefs.setString('cargoPesquisado', cargo);
+
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => AvaliacoesRealizadasPageView()),
+    );
   }
 }
