@@ -41,8 +41,9 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
   void carregarAvaliacoes() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> avaliacoesJson = prefs.getStringList('avaliacoes') ?? [];
-    List<Map<String, String>> avaliacoes =
-        avaliacoesJson.map((avl) => Map<String, String>.from(json.decode(avl))).toList();
+    List<Map<String, String>> avaliacoes = avaliacoesJson
+        .map((avl) => Map<String, String>.from(json.decode(avl)))
+        .toList();
     setState(() {
       _avaliacoes = avaliacoes;
     });
@@ -98,7 +99,8 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Text(
                         _nomeUsuario,
-                        style: TextStyle(fontSize: 30, color: Color(0xFF6D0467)),
+                        style:
+                            TextStyle(fontSize: 30, color: Color(0xFF6D0467)),
                       ),
                       const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
                       Row(
@@ -115,7 +117,8 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset("assets/icon_magnifyingglass.png"),
-                          const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 5)),
                           const Column(
                             children: [
                               Text(
@@ -134,9 +137,11 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                               ),
                             ],
                           ),
-                          const Padding(padding: EdgeInsets.symmetric(horizontal: 25)),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 25)),
                           Image.asset("assets/Group33730.png"),
-                          const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 5)),
                           Column(
                             children: [
                               Text(
@@ -271,7 +276,8 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Row(
                         children: [
-                          Padding(padding: EdgeInsets.symmetric(horizontal: 22)),
+                          Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 22)),
                           Text(
                             "Feedback",
                             style: TextStyle(
@@ -281,8 +287,7 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                           ),
                         ],
                       ),
-                      const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5)),
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                       ExpansionTile(
                         title: Row(
                           children: [
@@ -299,18 +304,24 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                         ),
                         children: <Widget>[
                           _feedback != null
-                              ? Text(
-                                  _feedback!,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
+                              ? Center(
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    _feedback!,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 )
-                              : Text(
-                                  "Nenhum feedback disponível",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
+                              : Center(
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    "Nenhum feedback disponível",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ),
                         ],
@@ -345,7 +356,8 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/Frame237.png", height: 50, width: 500),
+                          Image.asset("assets/Frame237.png",
+                              height: 50, width: 500),
                         ],
                       ),
                       const Text(
@@ -354,7 +366,8 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/Frame237.png", height: 50, width: 500),
+                          Image.asset("assets/Frame237.png",
+                              height: 50, width: 500),
                         ],
                       ),
                       const Text(
@@ -363,7 +376,8 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/Frame237.png", height: 50, width: 500),
+                          Image.asset("assets/Frame237.png",
+                              height: 50, width: 500),
                         ],
                       ),
                       const Text(
@@ -372,7 +386,8 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/Frame237.png", height: 50, width: 500),
+                          Image.asset("assets/Frame237.png",
+                              height: 50, width: 500),
                         ],
                       ),
                       const Text(
@@ -381,7 +396,8 @@ class AvaliacoesPessoaisViewState extends State<AvaliacoesPessoaisView> {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/Frame237.png", height: 50, width: 500),
+                          Image.asset("assets/Frame237.png",
+                              height: 50, width: 500),
                         ],
                       ),
                     ],
