@@ -171,7 +171,6 @@ class _LoginPageViewState extends State<LoginPageView> {
                             const Color(0xFF6D0467)),
                       ),
                       onPressed: () async {
-//await _saveData();
                         dynamic resultado = await LoginController()
                             .fazerLoginUsuario(senhaLoginController.value.text,
                                 emailLoginController.value.text);
