@@ -1,31 +1,40 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+  import 'package:flutter/material.dart';
+  import 'package:flutter_test/flutter_test.dart';
+  import 'package:shared_preferences/shared_preferences.dart';
+  import 'package:Mobile/views/RealizarAvaliacoesPageView.dart';
+  import 'package:http/http.dart' as http;
+  import 'package:http/testing.dart';
+  import 'dart:convert';
 
-import 'package:Mobile/controllers/LoginController.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart'; 
+  void main() {
+    testWidgets('Test data submission', (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({
+        'nomePesquisado': 'John Doe',
+        'cargoPesquisado': 'Developer',
+        'idPesquisado': '123',
+      });
 
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    LoginController loginController = LoginController();
-    loginController.testarConexao();
-    // await tester.pumpWidget(const MyApp());
+      // Mock HTTP client
+      final client = MockClient((request) async {
+        expect(request.url, Uri.parse('https://projeto-sementes.onrender.com/avaliacoes/criar'));
+        expect(request.headers['Content-Type'], 'application/json');
+        final body = json.decode(request.body);
+        expect(body['usuarioAvaliadoId'], '123');
+        expect(body['comunicacao'], 0); // Default value when no checkbox is selected
+        return http.Response('{"message": "success"}', 201);
+      });
 
-    // // Verify that our counter starts at 0.
-    // expect(find.text('0'), findsOneWidget);
-    // expect(find.text('1'), findsNothing);
+      await tester.pumpWidget(MaterialApp(home: RealizarAvaliacoesPageView(httpClient: client)));
 
-    // // Tap the '+' icon and trigger a frame.
-    // await tester.tap(find.byIcon(Icons.add));
-    // await tester.pump();
+      // Enter text in the text field
+      await tester.enterText(find.byType(TextField), 'Great performance!');
+      await tester.pump();
 
-    // // Verify that our counter has incremented.
-    // expect(find.text('0'), findsNothing);
-    // expect(find.text('1'), findsOneWidget);
-  });
-}
+      // Tap the submit button
+      await tester.tap(find.text('Enviar Avaliação'));
+      await tester.pump();
+
+      // Verify if the submission was successful
+      expect(find.text('Avaliação enviada com sucesso'), findsOneWidget);
+    });
+  }

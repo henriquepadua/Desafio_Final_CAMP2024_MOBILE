@@ -1,4 +1,5 @@
 import 'package:Mobile/views/HomePageView.dart';
+import 'package:Mobile/views/LoginPageView.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -98,12 +99,6 @@ class RealizarAvaliacoesPageViewState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Buscar"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
-        ],
-      ),
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -114,9 +109,14 @@ class RealizarAvaliacoesPageViewState
         backgroundColor: Color.fromRGBO(109, 4, 103, 1),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings, color: Colors.white),
-            onPressed: () {},
-          ),
+              icon: const Icon(Icons.settings, color: Colors.white),
+              onPressed: () {
+                Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPageView()),
+                        );
+              },
+            ),
         ],
       ),
       body: ListView(children: [

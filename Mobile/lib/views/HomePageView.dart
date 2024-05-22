@@ -1,4 +1,5 @@
 import 'package:Mobile/views/BuscarPageView.dart';
+import 'package:Mobile/views/LoginPageView.dart';
 import 'package:Mobile/views/PerfilPageView.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,12 @@ class _HomePageViewState extends State<HomePageView> {
           actions: [
             IconButton(
               icon: const Icon(Icons.settings, color: Colors.white),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPageView()),
+                        );
+              },
             ),
           ],
         ),

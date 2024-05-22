@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:dio/dio.dart';
 
 class CadastroController {
-  final dio = Dio();
 
   Future<void> fazerCadastroUsuario(
       String senha, String email, String nome, String cargo) async {
